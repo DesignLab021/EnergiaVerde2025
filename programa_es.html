@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa - I Foro China-España de Energía Verde</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%);
+        }
+
+        header {
+            background: linear-gradient(135deg, #10b981 0%, #0d9488 50%, #0369a1 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.25rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            margin-bottom: 0.75rem;
+        }
+
+        header .date-location {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #0d9488;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .program-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+
+        .program-subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1f2937;
+            border-bottom: 2px solid #10b981;
+            padding-bottom: 0.75rem;
+            margin: 2.5rem 0 1.5rem 0;
+        }
+
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 80px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #10b981 0%, #0d9488 50%, #0369a1 100%);
+        }
+
+        .time-slot {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .time-slot::before {
+            content: '';
+            position: absolute;
+            left: 68px;
+            top: 6px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 3px solid #10b981;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .time {
+            font-weight: 700;
+            color: #10b981;
+            font-size: 0.85rem;
+            padding-top: 0.25rem;
+        }
+
+        .content {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .content:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .activity-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .activity-description {
+            color: #4b5563;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .speaker-name {
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .participants {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .participant-item {
+            margin-bottom: 0.4rem;
+            color: #4b5563;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .participant-item strong {
+            color: #1f2937;
+        }
+
+        .break-item .content {
+            background: linear-gradient(135deg, #f3f4f6 0%, #f9fafb 100%);
+            border-left: 3px solid #9ca3af;
+        }
+
+        .break-item .activity-title {
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .break-item::before {
+            border-color: #9ca3af;
+            background: white;
+        }
+
+        footer {
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            font-size: 0.85rem;
+        }
+
+        footer p {
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem 0.5rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.75rem;
+            }
+
+            .timeline::before {
+                left: 50px;
+            }
+
+            .time-slot {
+                grid-template-columns: 50px 1fr;
+                gap: 1rem;
+            }
+
+            .time-slot::before {
+                left: 38px;
+                width: 24px;
+                height: 24px;
+            }
+
+            .time {
+                font-size: 0.75rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .activity-title {
+                font-size: 0.9rem;
+            }
+
+            .activity-description {
+                font-size: 0.8rem;
+            }
+
+            .participant-item {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>I Foro China-España de Energía Verde</h1>
+        <p>中西绿色能源论坛</p>
+        <div class="date-location">
+            <p>Martes, 25 de noviembre de 2025 | Palacio de Linares, Madrid</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">← Inicio</a>
+        <a href="programa_cn.html">中文版本</a>
+    </nav>
+
+    <div class="container">
+        <div class="program-title">PROGRAMA</div>
+        <div class="program-subtitle">Martes, 25 de noviembre de 2025</div>
+
+        <div class="timeline">
+            <div class="time-slot">
+                <div class="time">9:00</div>
+                <div class="content">
+                    <div class="activity-title">Apertura de Puertas y Acreditación</div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">9:30</div>
+                <div class="content">
+                    <div class="activity-title">Bienvenida</div>
+                    <div class="activity-description">
+                        <span class="speaker-name">Luz Ma</span>, presidenta de Comité de Energía Verde de la Cámara de Comercio e Inversiones de China en España y <span class="speaker-name">Sergi Vicente</span>, consultor experto en relaciones China-España.
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">9:35</div>
+                <div class="content">
+                    <div class="activity-title">Parlamento de Bienvenida</div>
+                    <div class="activity-description">
+                        <span class="speaker-name">Sr. Yang Kaiyu</span>, presidente de la Cámara de Comercio e Inversiones de China en España (CCINCE).
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">9:40</div>
+                <div class="content">
+                    <div class="activity-title">Parlamento Institucional</div>
+                    <div class="activity-description">
+                        <span class="speaker-name">Excelentísimo Sr. Yao Jing</span>, Embajador de la República Popular China en España.
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">9:50</div>
+                <div class="content">
+                    <div class="activity-title">Apertura Oficial del Foro</div>
+                    <div class="activity-description">
+                        <span class="speaker-name">Sr. Jaime Peris</span>, Comisionado Especial para la Reindustrialización, Ministerio de la Industria y Turismo.
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">10:00</div>
+                <div class="content">
+                    <div class="activity-title"><strong>Prácticas y perspectivas del desarrollo de la energía verde en China</strong></div>
+                    <div class="activity-description">
+                        <span class="speaker-name">Luo Bixiong</span>, Científico Jefe de China Energy Engineering Group Co., Ltd., Presidente de China Power Engineering Consulting Group Co., Ltd.
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">10:15</div>
+                <div class="content">
+                    <div class="activity-title"><strong>La evolución y las tendencias del desarrollo de las energías renovables en China</strong></div>
+                    <div class="activity-description">
+                        <span class="speaker-name">Lu Chuan</span> Phd, Presidente de China New Energy Chamber of Commerce (CNECC), Vicepresidente de la Asociación de la Industria Fotovoltaica de China (CPIA) y Presidente de Chint New Energy Group.
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">10:25</div>
+                <div class="content">
+                    <div class="activity-title"><strong>Tendencias y oportunidades de desarrollo de la energía verde en España</strong></div>
+                    <div class="activity-description">
+                        <span class="speaker-name">José Donoso</span>, Director General de Unión Española Fotovoltaica (UNEF) y Presidente del Comité de Asociaciones Nacionales de la Asociación Europea de Fotovoltaica.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Foros Temáticos</div>
+
+        <div class="timeline">
+            <div class="time-slot">
+                <div class="time">10:30<br>11:15</div>
+                <div class="content">
+                    <div class="activity-title"><strong>Foro 1: Desarrollo colaborativo de la cadena industrial de la energía verde</strong></div>
+                    <div class="activity-description">
+                        Presidido por <strong>EMPRESARIOS AGRUPADOS · GHESA/ Centro de Innovación Científica y Tecnológica China-Europa</strong>
+                    </div>
+                    <div class="participants">
+                        <div class="participant-item"><strong>Zhang Li</strong>, Subdirector General de la China Power Engineering Consulting Group Co., Ltd.; Presidente de Empresarios Agrupados · GHESA</div>
+                        <div class="participant-item"><strong>Pablo Pulpeiro</strong>, Director General de Acciona Nordex Green Hydrogen</div>
+                        <div class="participant-item"><strong>Enrique Iglesias</strong>, Director comercial de Hidrógeno y la Energía Limpia de Moeve</div>
+                        <div class="participant-item"><strong>Jesus Iravedra</strong>, Director de Ingeniería de Saeta Yield</div>
+                        <div class="participant-item"><strong>Pan Jun</strong>, Experto Principal y Vicepresidente Ejecutivo del Instituto de Desarrollo de Neutralidad de Carbono de CPECC</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">11:15<br>12:00</div>
+                <div class="content">
+                    <div class="activity-title"><strong>Foro 2: Inteligencia Artificial y los Sistemas Energéticos del Futuro</strong></div>
+                    <div class="activity-description">
+                        Presidido por <strong>Chint Energy</strong>
+                    </div>
+                    <div class="participants">
+                        <div class="participant-item"><strong>Luz Ma</strong>, Presidenta de Comité de Energía Verde, Directora General de Chint Energy España</div>
+                        <div class="participant-item"><strong>Miao LiYe</strong>, Director de Mercados Internacionales y Estrategia de Nadara BESS</div>
+                        <div class="participant-item"><strong>Hu Yuran</strong>, Directora General de Sunpure Technology</div>
+                        <div class="participant-item"><strong>Alfredo Valenciano</strong>, Socio Director de Exera Energía</div>
+                        <div class="participant-item"><strong>Alfonso Lacave Martos</strong>, Socio Líder de Fusiones y Adquisiciones de PWC</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot break-item">
+                <div class="time">12:00<br>12:30</div>
+                <div class="content">
+                    <div class="activity-title">Coffee and Tea Break</div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">12:30<br>13:15</div>
+                <div class="content">
+                    <div class="activity-title"><strong>Foro 3: Soluciones financieras para el desarrollo de la energía verde</strong></div>
+                    <div class="activity-description">
+                        Presidido por <strong>China Construction Bank (Europe) Sucursal en España</strong>
+                    </div>
+                    <div class="participants">
+                        <div class="participant-item"><strong>Alejandro Gisbert Phd</strong>, Director de Riesgos de China Construction Bank (Europe) Sucursal en España</div>
+                        <div class="participant-item"><strong>Alejandro Velasco</strong>, Director de Industrial and Commercial Bank of China (Europe) Sucursal en España</div>
+                        <div class="participant-item"><strong>Javier Fidalgo</strong>, Director General del Área de Energía – Asesoría Global en Banca Corporativa</div>
+                        <div class="participant-item"><strong>María Ángeles Zatarain Phd</strong>, Director de Financiación Estructurada de Bankinter</div>
+                        <div class="participant-item" style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #e5e7eb;"><strong>Moderador:</strong> Xie Lin, subdirector de China Construction Bank (Europe) Sucursal en España</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">13:15<br>14:00</div>
+                <div class="content">
+                    <div class="activity-title"><strong>Foro 4: Inversión en Energía Verde: Oportunidades y desafíos</strong></div>
+                    <div class="activity-description">
+                        Presidido por <strong>China Three Gorges Europe</strong>
+                    </div>
+                    <div class="participants">
+                        <div class="participant-item"><strong>Ignacio Herrero</strong>, Director General de China Three Gorges Europe</div>
+                        <div class="participant-item"><strong>Iria Calviño</strong>, Socia de la área de Energía de Herbert Smith</div>
+                        <div class="participant-item"><strong>Chema Zabala</strong>, Director General de Alantra Energy Transition</div>
+                        <div class="participant-item"><strong>Carlos Reyero</strong>, Director General de Forestalía</div>
+                        <div class="participant-item" style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #e5e7eb;"><strong>Moderadora:</strong> Laura Ojea, periodista especializada en energía y sostenibilidad. Editora Jefa de Energía en El Español</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">14:10</div>
+                <div class="content">
+                    <div class="activity-title">Agradecimiento</div>
+                    <div class="activity-description">
+                        <span class="speaker-name">Sr. Tang Yuanjie</span>, Director General de China Three Gorges Europe (CTGE)
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">14:10</div>
+                <div class="content">
+                    <div class="activity-title">Parlamento de Clausura Institucional</div>
+                    <div class="activity-description">(Por confirmar)</div>
+                </div>
+            </div>
+
+            <div class="time-slot break-item">
+                <div class="time">14:20</div>
+                <div class="content">
+                    <div class="activity-title">Cóctel-almuerzo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 I Foro China-España de Energía Verde</p>
+        <p>Palacio de Linares | C/ Marqués del Duero, 2, Madrid</p>
+    </footer>
+</body>
+</html>

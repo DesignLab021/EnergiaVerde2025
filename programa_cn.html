@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论坛日程 - 中西绿色能源论坛</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Microsoft YaHei', 'SimHei', sans-serif;
+            line-height: 1.7;
+            color: #1f2937;
+            background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%);
+        }
+
+        header {
+            background: linear-gradient(135deg, #10b981 0%, #0d9488 50%, #0369a1 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.25rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            margin-bottom: 0.75rem;
+        }
+
+        header .date-location {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #0d9488;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .program-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+
+        .program-subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1f2937;
+            border-bottom: 2px solid #10b981;
+            padding-bottom: 0.75rem;
+            margin: 2.5rem 0 1.5rem 0;
+        }
+
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 80px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #10b981 0%, #0d9488 50%, #0369a1 100%);
+        }
+
+        .time-slot {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .time-slot::before {
+            content: '';
+            position: absolute;
+            left: 68px;
+            top: 6px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 3px solid #10b981;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .time {
+            font-weight: 700;
+            color: #10b981;
+            font-size: 0.85rem;
+            padding-top: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .content {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .content:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .activity-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .activity-description {
+            color: #4b5563;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .speaker-name {
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .participants {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .participant-item {
+            margin-bottom: 0.4rem;
+            color: #4b5563;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .participant-item strong {
+            color: #1f2937;
+        }
+
+        .break-item .content {
+            background: linear-gradient(135deg, #f3f4f6 0%, #f9fafb 100%);
+            border-left: 3px solid #9ca3af;
+        }
+
+        .break-item .activity-title {
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .break-item::before {
+            border-color: #9ca3af;
+            background: white;
+        }
+
+        footer {
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            font-size: 0.85rem;
+        }
+
+        footer p {
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem 0.5rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.75rem;
+            }
+
+            .timeline::before {
+                left: 50px;
+            }
+
+            .time-slot {
+                grid-template-columns: 50px 1fr;
+                gap: 1rem;
+            }
+
+            .time-slot::before {
+                left: 38px;
+                width: 24px;
+                height: 24px;
+            }
+
+            .time {
+                font-size: 0.75rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .activity-title {
+                font-size: 0.9rem;
+            }
+
+            .activity-description {
+                font-size: 0.8rem;
+            }
+
+            .participant-item {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>I Foro China-España de Energía Verde</h1>
+        <p>中西绿色能源论坛</p>
+        <div class="date-location">
+            <p>2025年11月25日 | Palacio de Linares, Madrid</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">← 首页</a>
+        <a href="programa_es.html">Español</a>
+    </nav>
+
+    <div class="container">
+        <div class="program-title">论坛日程</div>
+        <div class="program-subtitle">2025年11月25日</div>
+
+        <div class="timeline">
+            <div class="time-slot">
+                <div class="time">9:00</div>
+                <div class="content">
+                    <div class="activity-title">入场及签到</div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">9:30</div>
+                <div class="content">
+                    <div class="activity-title">开场</div>
+                    <div class="activity-description">
+                        中西关系随问专家 <span class="speaker-name">SERGI VICENTE</span>先生<br>
+                        西班牙中国商会绿色能源委员会主席 麻晶晶女士
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">9:35</div>
+                <div class="content">
+                    <div class="activity-title">欢迎致辞</div>
+                    <div class="activity-description">
+                        中国西班牙商会主席 <span class="speaker-name">杨凯宇</span>先生
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">9:40</div>
+                <div class="content">
+                    <div class="activity-title">致辞</div>
+                    <div class="activity-description">
+                        中华人民共和国驻西班牙特命全权大使 <span class="speaker-name">姚敬</span>先生
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">9:50</div>
+                <div class="content">
+                    <div class="activity-title">致辞</div>
+                    <div class="activity-description">
+                        西班牙工业与旅游部特派代表 <span class="speaker-name">JAIME PERIS</span>先生
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">10:00</div>
+                <div class="content">
+                    <div class="activity-title"><strong>"中国绿色能源发展的实践与展望"</strong></div>
+                    <div class="activity-description">
+                        主讲人：<span class="speaker-name">罗必雄</span><br>
+                        中国能源建设集团有限公司首席科学家<br>
+                        中国电力工程顾问集团有限公司 董事长<br>
+                        电力规划设计总院 院长
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">10:15</div>
+                <div class="content">
+                    <div class="activity-title"><strong>"中国可再生能源发展的历程与趋势"</strong></div>
+                    <div class="activity-description">
+                        主讲人：<span class="speaker-name">陆川</span>博士<br>
+                        全国工商联新能源商会 执行会长<br>
+                        中国光伏行业协会（CPIA）副会长<br>
+                        正泰集团董事 新能源板块董事长
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">10:25</div>
+                <div class="content">
+                    <div class="activity-title"><strong>"西班牙绿色能源发展趋势与机遇"</strong></div>
+                    <div class="activity-description">
+                        主讲人：<span class="speaker-name">JOSE DONOSO</span><br>
+                        西班牙光伏联盟总干事<br>
+                        欧洲光伏协会国家协会委员会主席
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">主题论坛</div>
+
+        <div class="timeline">
+            <div class="time-slot">
+                <div class="time">10:30<br>11:15</div>
+                <div class="content">
+                    <div class="activity-title"><strong>论坛一：绿色能源产业链协同发展</strong></div>
+                    <div class="activity-description">
+                        主持单位：<strong>EMPRESARIOS AGRUPADOS · GHESA/中欧科技创新中心</strong>
+                    </div>
+                    <div class="participants">
+                        <div class="participant-item"><strong>张力</strong>, 中国电力工程顾问集团有限公司副总经理；中国电力工程顾问集团国际工程有限公司董事长；西班牙易安国际股份公司和盖姆工程技术股份公司董事长</div>
+                        <div class="participant-item"><strong>Pablo Pulpeiro</strong>, Acciona Nordex Green Hydrogen 首席执行官</div>
+                        <div class="participant-item"><strong>Enrique Iglesias</strong>, Moeve 氢能事业部商务总监</div>
+                        <div class="participant-item"><strong>Iravedra</strong>, Saeta Yield 工程部总监</div>
+                        <div class="participant-item"><strong>潘军</strong>, 中国电力工程顾问集团有限公司首席专家；中国碳中和发展研究院常务副院长；中欧科技创新中心副主任</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">11:15<br>12:00</div>
+                <div class="content">
+                    <div class="activity-title"><strong>论坛二：人工智能与未来能源系统</strong></div>
+                    <div class="activity-description">
+                        主持单位：<strong>西班牙正泰能源</strong>
+                    </div>
+                    <div class="participants">
+                        <div class="participant-item"><strong>麻晶晶</strong>, 中国商会绿色能源委员会主席，西班牙正泰能源 首席执行官</div>
+                        <div class="participant-item"><strong>胡羽然</strong>, 仁澜智能科技 首席执行官</div>
+                        <div class="participant-item"><strong>缪立野</strong>, 南都电源 海外市场兼战略事业部总经理</div>
+                        <div class="participant-item"><strong>Alfredo Valenciano</strong>, Exera Energía 管理合伙人</div>
+                        <div class="participant-item"><strong>Alfonso Lacave Martos</strong>, 普华永道 能源领域并购合伙人</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot break-item">
+                <div class="time">12:00<br>12:30</div>
+                <div class="content">
+                    <div class="activity-title">茶歇</div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">12:30<br>13:15</div>
+                <div class="content">
+                    <div class="activity-title"><strong>论坛三：绿色能源发展的金融解决方案</strong></div>
+                    <div class="activity-description">
+                        主持单位：<strong>中国建设银行（欧洲）有限公司西班牙分行</strong>
+                    </div>
+                    <div class="participants">
+                        <div class="participant-item"><strong>Alejandro Gisbert 博士</strong>, 中国建设银行(欧洲) 有限公司西班牙分行 风险总监</div>
+                        <div class="participant-item"><strong>Alejandro Velasco</strong>, 中国工商银行(欧洲)有限公司西班牙分行 总监</div>
+                        <div class="participant-item"><strong>Javier Fidalgo</strong>, 西班牙BBVA银行 企业与投资银行全球能源咨询部 总经理</div>
+                        <div class="participant-item"><strong>María Ángeles Zatarain 博士</strong>, 西班牙Bankinter 银行 金融分析师(CFA)结构融资总监</div>
+                        <div class="participant-item" style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #e5e7eb;"><strong>主持人：</strong> 谢林, 中国建设银行(欧洲) 有限公司西班牙分行 副行长</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">13:15<br>14:00</div>
+                <div class="content">
+                    <div class="activity-title"><strong>论坛四：绿色能源投资——机遇与挑战</strong></div>
+                    <div class="activity-description">
+                        主持单位：<strong>中国三峡欧洲公司</strong>
+                    </div>
+                    <div class="participants">
+                        <div class="participant-item"><strong>Ignacio Herrero</strong>, 中国三峡欧洲公司 首席执行官</div>
+                        <div class="participant-item"><strong>Iria Calviño</strong>, Herbert Smith 律师事务所 能源合伙人</div>
+                        <div class="participant-item"><strong>Chema Zabala</strong>, Alantra Energy Transition 董事总经理</div>
+                        <div class="participant-item"><strong>Carlos Reyero</strong>, Forestalía 总经理</div>
+                        <div class="participant-item" style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #e5e7eb;"><strong>主持人：</strong> Laura Ojea, 《西班牙人报》能源版主编，能源与可持续发展领域深度记者</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">14:10</div>
+                <div class="content">
+                    <div class="activity-title">闭幕致辞</div>
+                    <div class="activity-description">
+                        <span class="speaker-name">唐远提</span>, 三峡欧洲有限公司 总经理
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-slot">
+                <div class="time">14:10</div>
+                <div class="content">
+                    <div class="activity-title">官方闭幕致辞</div>
+                    <div class="activity-description">（待确认）</div>
+                </div>
+            </div>
+
+            <div class="time-slot break-item">
+                <div class="time">14:20</div>
+                <div class="content">
+                    <div class="activity-title">交流午餐会</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 中西绿色能源论坛</p>
+        <p>Palacio de Linares | C/ Marqués del Duero, 2, Madrid</p>
+    </footer>
+</body>
+</html>
