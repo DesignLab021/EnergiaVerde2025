@@ -14,6 +14,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     -->
+    <script>
+      // Detect GitHub Pages subdirectory (e.g., /repo-name) and expose it to the app router.
+      (() => {
+        const segments = window.location.pathname.split("/").filter(Boolean);
+        window.__APP_BASE_PATH__ = segments.length ? `/${segments[0]}` : "";
+      })();
+    </script>
     <script type="module" crossorigin src="./index-CzbnVwiB.js"></script>
     <link rel="stylesheet" crossorigin href="./css/index-BFvvA0-y.css">
   </head>
