@@ -58,7 +58,8 @@
         .company-name { font-weight: 500; color: #333; }
         
         /* Challenges Section */
-        .challenges { background: #000; min-height: 600px; }
+        .challenges { background: #000; min-height: 600px; position: relative; overflow: hidden; }
+        .challenges h2 { color: #fff; text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35); }
         .challenges-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
         .challenge-card { background: white; padding: 2rem; border-radius: 0.5rem; border: 1px rgba(37,99,235,0.2); }
         .challenge-card h3 { font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; }
@@ -67,6 +68,9 @@
         .challenge-card .bullet { font-weight: bold; }
         .challenge-card .bullet.danger { color: #ef4444; }
         .challenge-card .bullet.success { color: #10b981; }
+        .challenge-video-wrapper { position: absolute; inset: 0; width: 100vw; left: 50%; transform: translateX(-50%); height: 100%; z-index: 0; overflow: hidden; }
+        .challenge-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: none; display: block; }
+        .challenge-video-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); pointer-events: none; }
         
         /* Tematicas Section */
         .tematicas { background: linear-gradient(to right, rgba(16,185,129,0.05), rgba(13,148,136,0.05)); }
@@ -205,10 +209,10 @@
     </section>
 
     <!-- Challenges Section -->
-    <section id="challenges" class="challenges" style="position: relative; overflow: hidden; background: #000;">
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/_pPh_RGInp0?autoplay=1&mute=1&loop=1&playlist=_pPh_RGInp0&controls=0&modestbranding=1&rel=0&playsinline=1" frameborder="0" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border: none;" loading="lazy"></iframe>
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); pointer-events: none;"></div>
+    <section id="challenges" class="challenges">
+        <div class="challenge-video-wrapper">
+            <iframe class="challenge-video" src="https://www.youtube.com/embed/_pPh_RGInp0?autoplay=1&mute=1&loop=1&playlist=_pPh_RGInp0&controls=0&modestbranding=1&rel=0&playsinline=1" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            <div class="challenge-video-overlay"></div>
         </div>
         <div class="container" style="position: relative; z-index: 10;">
             <h2>Retos y Oportunidades de Cooperación</h2>
